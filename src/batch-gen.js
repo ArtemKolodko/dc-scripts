@@ -26,16 +26,18 @@ const runBatchGen = async () => {
     const data = fs.readFileSync(__dirname + '/batch-gen.txt', 'utf8');
     const lines = data.split('\n').filter(line => line)
 
+    console.log('Start batch /gen task')
+
     for(let i = 0; i < lines.length; i++) {
         const line = lines[i]
-        const [, domain] = line.split('  ')
+        const [domain] = line.split('\t')
 
         if(domain && domain.endsWith('country')) {
             await generateMetadata(domain)
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            await new Promise(resolve => setTimeout(resolve, 500))
         }
 
-        console.log('Completed ', domain, ', ', i + 1, 'of', lines.length)
+        console.log(`Completed ${domain}, ${i + 1} of ${lines.length}`)
     }
 }
 
