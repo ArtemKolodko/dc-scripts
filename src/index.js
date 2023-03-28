@@ -11,11 +11,8 @@ const runTest = async () => {
     console.log('erc721TokenId', erc721TokenId)
 
     // Get erc1155 tokenId from erc721 tokenId
-    let labelHashReverse = BigNumber.from(erc721TokenId).toHexString()
-    if(labelHashReverse.length === 64) {
-        labelHashReverse = labelHashReverse.slice(2)
-        labelHashReverse = '0x00' + labelHashReverse
-    }
+    let labelHashReverse = web3.utils.toBN(erc721TokenId).toString('hex', 64)
+    labelHashReverse = '0x' + labelHashReverse
     console.log('labelHash', labelHash, labelHash.length)
     console.log('labelHashReverse', labelHashReverse, labelHashReverse.length)
     const tldNode = '0xad4be81514036b9f6ff6c5f69394daacc516c82bd6dc4756d7f6ef1b3f9ea717'
